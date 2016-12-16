@@ -1,0 +1,162 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "nsgName": {
+      "type": "string",
+      "defaultValue": "nsg-default1"
+    },
+    "virtualNetworkName": {
+      "type": "string",
+      "defaultValue": "vnet-FW",
+      "metadata": {
+        "description": "VNET name"
+      }
+    },
+    "virtualNetworkAddressPrefix": {
+      "type": "string",
+      "defaultValue": "192.168.0.0/16",
+      "metadata": {
+        "description": "CIDR for vnet"
+      }
+    },
+    "subnet0Name": {
+      "type": "string",
+      "defaultValue": "Mgmt",
+      "metadata": {
+        "description": "Subnet for Management"
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "Untrust",
+      "metadata": {
+        "description": "Subnet for Untrust"
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "Trust",
+      "metadata": {
+        "description": "Subnet for Trust"
+      }
+    },
+    "subnetLBName": {
+      "type": "string",
+      "defaultValue": "UntrustLB",
+      "metadata": {
+        "description": "Subnet for App Gateway"
+      }
+    },
+    "subnetWWWName": {
+      "type": "string",
+      "defaultValue": "backendSubnet",
+      "metadata": {
+        "description": "Subnet for backend WWW"
+      }
+    },
+    "subnet0Prefix": {
+      "type": "string",
+      "defaultValue": "192.168.0.0/24",
+      "metadata": {
+        "description": "Mgmt subnet CIDR"
+      }
+    },
+    "subnet1Prefix": {
+      "type": "string",
+      "defaultValue": "192.168.1.0/24",
+      "metadata": {
+        "description": "Untrust subnet CIDR"
+      }
+    },
+    "subnet2Prefix": {
+      "type": "string",
+      "defaultValue": "192.168.2.0/24",
+      "metadata": {
+        "description": "Trust subnet CIDR"
+      }
+    },
+    "subnetLBPrefix": {
+      "type": "string",
+      "defaultValue": "192.168.3.0/24",
+      "metadata": {
+        "description": "App Gateway CIDR"
+      }
+    },
+    "subnetWWWPrefix": {
+      "type": "string",
+      "defaultValue": "192.168.4.0/24",
+      "metadata": {
+        "description": "backend WWW CIDR"
+      }
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "rgname": "[resourceGroup().id]",
+    "vnetname": "[parameters('virtualNetworkName')]",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('vnetname'))]",
+    "subnet0Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet0Name'))]",
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
+    "subnet2Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet2Name'))]",
+    "subnetLBRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetLBName'))]",
+    "subnetWWWRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetWWWName'))]",
+    "subnets": [
+      {
+        "name": "[parameters('subnet0Name')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnet0Prefix')]",
+          "networkSecurityGroup": {
+              "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+          }
+        }
+      },
+      {
+        "name": "[parameters('subnet1Name')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnet1Prefix')]"
+        }
+      },
+      {
+        "name": "[parameters('subnet2Name')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnet2Prefix')]"
+        }
+      },
+      {
+        "name": "[parameters('subnetLBName')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnetLBPrefix')]"
+        }
+      },
+      {
+        "name": "[parameters('subnetWWWName')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnetWWWPrefix')]"
+        }
+      },
+    ]
+  },
+  "resources": [
+    {
+      "name": "[variables('vnetname')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[variables('location')]",
+      "apiVersion": "2015-06-15",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('virtualNetworkAddressPrefix')]"
+          ]
+        },
+        "subnets": "[variables('subnets')]"
+      }
+    }
+  ],
+  "outputs": {
+    "vnetName": {
+      "value": "[variables('vnetname')]",
+      "type": "string"
+    }
+  }
+}
