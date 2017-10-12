@@ -225,7 +225,7 @@
     "availabilitySetName": "[concat('firewallAvSet', substring(uniqueString(resourceGroup().id), 0, 4))]",
     "rgname": "[resourceGroup().id]",
     "imagePublisher": "paloaltonetworks",
-    "imageOffer" : "vmseries1-beta",
+    "imageOffer" : "vmseries1",
     "version" : "latest",
     "nicName": "[parameters('vmName')]",
     "publicIPAddressType": "Dynamic",
