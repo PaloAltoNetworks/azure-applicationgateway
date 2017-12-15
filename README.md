@@ -17,3 +17,4 @@ Only projects explicitly tagged with "Supported" information are officially supp
 * About the [VM-Series Firewall for Azure](https://azure.paloaltonetworks.com)
 
 [<img src="http://azuredeploy.net/deploybutton.png"/>](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FPaloAltoNetworks%2Fazure-applicationgateway%2Fmaster%2Fazuredeploy.json)
+[<img src="http://azuredeploy.net/visualizebutton.png"/>](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FPaloAltoNetworks%2Fazure-applicationgateway%2Fmaster%2Fazuredeploy.json)
