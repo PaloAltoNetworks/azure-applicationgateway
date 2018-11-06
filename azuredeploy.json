@@ -4,7 +4,7 @@
   "parameters": {
     "environmentName": {
       "type": "string",
-      "defaultValue": "AzureUSGovernment",
+      "defaultValue": "AzureUSGovernment"
     },      
     "networkSecurityGroupName": {
       "type": "string",
