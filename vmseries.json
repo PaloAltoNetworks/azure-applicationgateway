@@ -25,13 +25,10 @@
     "vmSize": {
        "type": "string",
        "allowedValues": [
-          "Standard_D3",
-          "Standard_D4",
-          "Standard_D3_v2",
-          "Standard_D4_v2",
-          "Standard_D5_v2",
-          "Standard_D14_v2", 
-          "Standard_A4"
+          "Standard_DS3_v2",
+          "Standard_DS4_v2",
+          "Standard_D4S_v3",
+          "Standard_DS12-1_v2"
        ],
        "metadata": {
           "description": "Azure VM size for VM-Series"
