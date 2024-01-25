@@ -26,11 +26,11 @@
     "skuName": {
       "type": "string",
       "allowedValues": [
-        "Standard_Small",
-        "Standard_Medium",
-        "Standard_Large"
+        "Standard_v2",
+        "WAF_v2"
+    
       ],
-      "defaultValue": "Standard_Medium",
+      "defaultValue": "WAF_v2",
       "metadata": {
         "description": "Sku Name"
       }
